@@ -3,8 +3,6 @@
 
 #include <arduino.h>
 #include <SPI.h>
-#include <MsTimer2.h>
-#include <stdio.h>
 
 class L6470 
 {
@@ -13,80 +11,81 @@ public:
 
 public:
 	//各値をセットするメソッド
-	void setparam_abspos(long val);
-	void setparam_elpos(long val);
-	void setparam_mark(long val);
-	void setparam_acc(long val);
-	void setparam_dec(long val);
-	void setparam_maxspeed(long val);
-	void setparam_minspeed(long val);
-	void setparam_fsspd(long val);
-	void setparam_kvalhold(long val);
-	void setparam_kvalrun(long val);
-	void setparam_kvalacc(long val);
-	void setparam_kvaldec(long val);
-	void setparam_intspd(long val);
-	void setparam_stslp(long val);
-	void setparam_fnslpacc(long val);
-	void setparam_fnslpdec(long val);
-	void setparam_ktherm(long val);
-	void setparam_ocdth(long val);
-	void setparam_stallth(long val);
-	void setparam_stepmood(long val);
-	void setparam_alareen(long val);
-	void setparam_config(long val);
+	void setparam_abspos(int machine, long val);
+	void setparam_elpos(int machine, long val);
+	void setparam_mark(int machine, long val);
+	void setparam_acc(int machine, long val);
+	void setparam_dec(int machine, long val);
+	void setparam_maxspeed(int machine, long val);
+	void setparam_minspeed(int machine, long val);
+	void setparam_fsspd(int machine, long val);
+	void setparam_kvalhold(int machine, long val);
+	void setparam_kvalrun(int machine, long val);
+	void setparam_kvalacc(int machine, long val);
+	void setparam_kvaldec(int machine, long val);
+	void setparam_intspd(int machine, long val);
+	void setparam_stslp(int machine, long val);
+	void setparam_fnslpacc(int machine, long val);
+	void setparam_fnslpdec(int machine, long val);
+	void setparam_ktherm(int machine, long val);
+	void setparam_ocdth(int machine, long val);
+	void setparam_stallth(int machine, long val);
+	void setparam_stepmood(int machine, long val);
+	void setparam_alareen(int machine, long val);
+	void setparam_config(int machine, long val);
 
 	//各値を取得するメソッド
-	long getparam(int add,int bytes);
-	long getparam_abspos();
-	long getparam_elpos();
-	long getparam_mark();
-	long getparam_speed();
-	long getparam_acc();
-	long getparam_dec();
-	long getparam_maxspeed();
-	long getparam_minspeed();
-	long getparam_fsspd();
-	long getparam_kvalhold();
-	long getparam_kvalrun();
-	long getparam_kvalacc();
-	long getparam_kvaldec();
-	long getparam_intspd();
-	long getparam_stslp();
-	long getparam_fnslpacc();
-	long getparam_fnslpdec();
-	long getparam_ktherm();
-	long getparam_adcout();
-	long getparam_ocdth();
-	long getparam_stallth();
-	long getparam_stepmood();
-	long getparam_alareen();
-	long getparam_config();
-	long getparam_status();
+	long getparam(int machine, int add, int bytes);
+	long getparam_abspos(int machine);
+	long getparam_elpos(int machine);
+	long getparam_mark(int machine);
+	long getparam_speed(int machine);
+	long getparam_acc(int machine);
+	long getparam_dec(int machine);
+	long getparam_maxspeed(int machine);
+	long getparam_minspeed(int machine);
+	long getparam_fsspd(int machine);
+	long getparam_kvalhold(int machine);
+	long getparam_kvalrun(int machine);
+	long getparam_kvalacc(int machine);
+	long getparam_kvaldec(int machine);
+	long getparam_intspd(int machine);
+	long getparam_stslp(int machine);
+	long getparam_fnslpacc(int machine);
+	long getparam_fnslpdec(int machine);
+	long getparam_ktherm(int machine);
+	long getparam_adcout(int machine);
+	long getparam_ocdth(int machine);
+	long getparam_stallth(int machine);
+	long getparam_stepmood(int machine);
+	long getparam_alareen(int machine);
+	long getparam_config(int machine);
+	long getparam_status(int machine);
 
 public:
 	//主な動作のメソッド
-	void L6470_setup();
-	void run(int dia,long spd);
-	void stepclock(int dia);
-	void move(int dia,long n_step);
-	void goTo(long pos);
-	void gotodia(int dia,int pos);
-	void gountil(int act,int dia,long spd);
-    void gomark();
-	void relesesw(int act,int dia);
-	void gohome();
-	void resetpos();
-	void resetdevice();
-	void softstop();
-	void hardstop();
-	void softhiz();
-	void hardhiz();
-	long getstatus();
-	void transfer(int add,int bytes,long val);
-	void send(unsigned char add_or_val);
+	void L6470_setup(int machine);
+	void run(int machine, int dia,long spd);
+	void stepclock(int machine, int dia);
+	void move(int machine, int dia,long n_step);
+	void goTo(int machine, long pos);
+	void gotodia(int machine, int dia,int pos);
+	void gountil(int machine, int act,int dia,long spd);
+    void gomark(int machine);
+	void relesesw(int machine, int act,int dia);
+	void gohome(int machine);
+	void resetpos(int machine);
+	void resetdevice(int machine);
+	void softstop(int machine);
+	void hardstop(int machine);
+	void softhiz(int machine);
+	void hardhiz(int machine);
+	long getstatus(int machine);
 	void busydelay(long time);
-	int busy_flag();
+
+	void transfer(int machine, int add,int bytes,long val);
+	void send(int machine, unsigned char add_or_val);
+	int busy_flag(int machine);
 
 private:
 	int spi_mosi_pin, spi_miso_pin, spi_sck_pin, spi_ss_pin, busy_pin;
